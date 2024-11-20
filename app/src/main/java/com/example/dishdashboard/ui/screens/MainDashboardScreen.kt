@@ -46,35 +46,45 @@ fun MainDashboardScreen(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.05f),
                         MaterialTheme.colorScheme.surface,
                         MaterialTheme.colorScheme.surfaceVariant
-                    )
+                    ),
+                    startY = 0f,
+                    endY = Float.POSITIVE_INFINITY
                 )
             )
     ) {
-        // Top App Bar with gradient background
-        TopAppBar(
-            title = {
+        // Title section with seamless gradient
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 24.dp)
+        ) {
+            Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    "DishDashboard",
-                    style = MaterialTheme.typography.headlineMedium.copy(
+                    text = "Namaste!",
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.Medium
+                    ),
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "DishDashboard",
+                    style = MaterialTheme.typography.headlineLarge.copy(
                         fontWeight = FontWeight.Bold
                     ),
                     color = MaterialTheme.colorScheme.onSurface
                 )
-            },
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.Transparent
-            ),
-            modifier = Modifier.background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
-                        MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)
-                    )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Restaurant Management System",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.9f)
                 )
-            )
-        )
+            }
+        }
 
         // Search Bar
         OutlinedTextField(
@@ -114,7 +124,7 @@ fun MainDashboardScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             item {
-                DashboardCard(
+                DishDashboardCard(
                     title = "Orders",
                     icon = Icons.Default.ShoppingCart,
                     backgroundColor = ModernBlue,
@@ -122,7 +132,7 @@ fun MainDashboardScreen(
                 )
             }
             item {
-                DashboardCard(
+                DishDashboardCard(
                     title = "Menu",
                     icon = Icons.Default.Restaurant,
                     backgroundColor = ModernGreen,
@@ -130,7 +140,7 @@ fun MainDashboardScreen(
                 )
             }
             item {
-                DashboardCard(
+                DishDashboardCard(
                     title = "Tables",
                     icon = Icons.Default.TableBar,
                     backgroundColor = ModernOrange,
@@ -138,7 +148,7 @@ fun MainDashboardScreen(
                 )
             }
             item {
-                DashboardCard(
+                DishDashboardCard(
                     title = "Inventory",
                     icon = Icons.Default.Inventory2,
                     backgroundColor = ModernPurple,
@@ -146,7 +156,7 @@ fun MainDashboardScreen(
                 )
             }
             item {
-                DashboardCard(
+                DishDashboardCard(
                     title = "Staff",
                     icon = Icons.Default.People,
                     backgroundColor = ModernTeal,
@@ -154,7 +164,7 @@ fun MainDashboardScreen(
                 )
             }
             item {
-                DashboardCard(
+                DishDashboardCard(
                     title = "Reports",
                     icon = Icons.Default.Assessment,
                     backgroundColor = Color(0xFF795548),
@@ -162,7 +172,7 @@ fun MainDashboardScreen(
                 )
             }
             item {
-                DashboardCard(
+                DishDashboardCard(
                     title = "Settings",
                     icon = Icons.Default.Settings,
                     backgroundColor = Color(0xFF607D8B),
@@ -175,7 +185,7 @@ fun MainDashboardScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DashboardCard(
+fun DishDashboardCard(
     title: String,
     icon: ImageVector,
     backgroundColor: Color,
