@@ -111,60 +111,52 @@ fun MenuScreen(onNavigateBack: () -> Unit) {
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.05f),
                         MaterialTheme.colorScheme.surface,
                         MaterialTheme.colorScheme.surfaceVariant
-                    )
+                    ),
+                    startY = 0f,
+                    endY = Float.POSITIVE_INFINITY
                 )
             )
     ) {
-        // Top App Bar with gradient
-        TopAppBar(
-            title = {
-                Text(
-                    "Menu",
-                    style = MaterialTheme.typography.headlineMedium.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            },
-            navigationIcon = {
-                IconButton(onClick = onNavigateBack) {
-                    Icon(
-                        Icons.Default.ArrowBack,
-                        contentDescription = "Back",
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
+        // Title section with seamless gradient
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 24.dp)
+        ) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text(
+                            text = "Menu",
+                            style = MaterialTheme.typography.headlineLarge.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Delicious Indian Cuisine",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.9f)
+                        )
+                    }
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(
+                            Icons.Default.ArrowBack,
+                            contentDescription = "Back",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
-            },
-            actions = {
-                IconButton(onClick = { /* TODO: Add menu item */ }) {
-                    Icon(
-                        Icons.Default.Add,
-                        contentDescription = "Add Item",
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-                IconButton(onClick = { /* TODO: Filter options */ }) {
-                    Icon(
-                        Icons.Default.FilterList,
-                        contentDescription = "Filter",
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-            },
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.Transparent
-            ),
-            modifier = Modifier.background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
-                        MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)
-                    )
-                )
-            )
-        )
+            }
+        }
 
         // Search Bar
         OutlinedTextField(

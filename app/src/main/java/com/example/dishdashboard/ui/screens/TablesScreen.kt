@@ -53,20 +53,7 @@ enum class TableFilter(val icon: @Composable () -> Unit, val label: String) {
 @Composable
 fun TablesScreen(onNavigateBack: () -> Unit) {
     var selectedFilter by remember { mutableStateOf(TableFilter.ALL) }
-    var showAddTableDialog by remember { mutableStateOf(false) }
-    
-    val tables = remember {
-        listOf(
-            Table(1, 2, TableStatus.AVAILABLE),
-            Table(2, 4, TableStatus.OCCUPIED, 3),
-            Table(3, 6, TableStatus.RESERVED, reservationTime = "19:30", customerName = "Rahul Sharma"),
-            Table(4, 2, TableStatus.CLEANING),
-            Table(5, 8, TableStatus.AVAILABLE),
-            Table(6, 4, TableStatus.OCCUPIED, 4),
-            Table(7, 2, TableStatus.RESERVED, reservationTime = "20:00", customerName = "Priya Patel"),
-            Table(8, 6, TableStatus.AVAILABLE)
-        )
-    }
+    var searchQuery by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -74,53 +61,61 @@ fun TablesScreen(onNavigateBack: () -> Unit) {
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.05f),
                         MaterialTheme.colorScheme.surface,
                         MaterialTheme.colorScheme.surfaceVariant
-                    )
+                    ),
+                    startY = 0f,
+                    endY = Float.POSITIVE_INFINITY
                 )
             )
     ) {
-        // Top App Bar with gradient
-        TopAppBar(
-            title = {
-                Text(
-                    "Tables",
-                    style = MaterialTheme.typography.headlineMedium.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            },
-            navigationIcon = {
-                IconButton(onClick = onNavigateBack) {
-                    Icon(
-                        Icons.Default.ArrowBack,
-                        contentDescription = "Back",
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
+        // Title section with seamless gradient
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 24.dp)
+        ) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text(
+                            text = "Tables",
+                            style = MaterialTheme.typography.headlineLarge.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Manage Restaurant Tables",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.9f)
+                        )
+                    }
+                    Row {
+                        IconButton(onClick = { /* TODO: Add filter */ }) {
+                            Icon(
+                                Icons.Default.FilterList,
+                                contentDescription = "Filter",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        IconButton(onClick = onNavigateBack) {
+                            Icon(
+                                Icons.Default.ArrowBack,
+                                contentDescription = "Back",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
                 }
-            },
-            actions = {
-                IconButton(onClick = { /* TODO: Refresh tables */ }) {
-                    Icon(
-                        Icons.Default.Refresh,
-                        contentDescription = "Refresh",
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-            },
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.Transparent
-            ),
-            modifier = Modifier.background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
-                        MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)
-                    )
-                )
-            )
-        )
+            }
+        }
 
         // Modern Filter Chips
         LazyRow(
@@ -182,7 +177,7 @@ fun TablesScreen(onNavigateBack: () -> Unit) {
         contentAlignment = Alignment.BottomEnd
     ) {
         FloatingActionButton(
-            onClick = { showAddTableDialog = true },
+            onClick = { /* TODO: Add table */ },
             modifier = Modifier
                 .padding(16.dp)
                 .shadow(
@@ -411,3 +406,14 @@ fun TableStatusChip(status: TableStatus) {
         }
     }
 }
+
+val tables = listOf(
+    Table(1, 2, TableStatus.AVAILABLE),
+    Table(2, 4, TableStatus.OCCUPIED, 3),
+    Table(3, 6, TableStatus.RESERVED, reservationTime = "19:30", customerName = "Rahul Sharma"),
+    Table(4, 2, TableStatus.CLEANING),
+    Table(5, 8, TableStatus.AVAILABLE),
+    Table(6, 4, TableStatus.OCCUPIED, 4),
+    Table(7, 2, TableStatus.RESERVED, reservationTime = "20:00", customerName = "Priya Patel"),
+    Table(8, 6, TableStatus.AVAILABLE)
+)
