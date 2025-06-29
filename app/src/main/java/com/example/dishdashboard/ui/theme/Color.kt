@@ -38,6 +38,14 @@ val TextSecondaryLight = Color(0xFF7F8C8D)
 val TextPrimaryDark = Color(0xFFECF0F1)
 val TextSecondaryDark = Color(0xFFBDC3C7)
 
+// Modern color palette for UI components
+val ModernBlue = Color(0xFF2196F3)
+val ModernGreen = Color(0xFF4CAF50)
+val ModernOrange = Color(0xFFFF9800)
+val ModernRed = Color(0xFFE91E63)
+val ModernPurple = Color(0xFF9C27B0)
+val ModernTeal = Color(0xFF009688)
+
 // Card colors
 val CardLight = Color(0xFFFFFFFF)
 val CardDark = Color(0xFF2C2C2C)
